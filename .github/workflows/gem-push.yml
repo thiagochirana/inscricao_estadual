@@ -4,6 +4,26 @@ on:
     branches: ["main"]
 
 jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.1"
+
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
+
+      - name: Run tests
+        run: bundle exec rspec
+
   publish:
     name: Publish and Build
     runs-on: ubuntu-latest
