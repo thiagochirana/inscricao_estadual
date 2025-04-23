@@ -8,4 +8,18 @@ require "inscricao_estadual"
 # with your gem easier. You can also use a different console, if you like.
 
 require "irb"
+
+def reload!
+  count = 0
+  load File.expand_path("../lib/inscricao_estadual.rb", __dir__)
+  Dir[File.expand_path("../lib/inscricao_estadual/uf/*.rb", __dir__)].sort.each do |f|
+    puts "UF #{File.basename(f, ".rb").upcase} successfully loaded!"
+    count += 1
+    load f
+  end
+
+  puts "Reloaded all #{count} UFs!"
+end
+
+
 IRB.start(__FILE__)
